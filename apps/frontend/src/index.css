@@ -1,0 +1,26 @@
+@import "tailwindcss";
+@import "./theme.css";
+
+@theme {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-content: var(--content);
+  --color-muted: var(--muted);
+  --color-primary: var(--primary);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --color-border: var(--border);
+  --shadow-card: 0 2px 12px rgba(0,0,0,0.06);
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+}
+
+
+@layer base {
+  html, body, #root { height: 100%; }
+  body { @apply bg-surface text-content antialiased; }
+}
+
+button {
+  cursor: pointer !important;
+}

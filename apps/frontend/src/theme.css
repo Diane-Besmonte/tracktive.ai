@@ -1,0 +1,20 @@
+:root {
+  /* Base palette */
+  --c-white: #ffffff;
+  --c-dirty: #f1f5f8;
+  --c-bluish: #a3c2e0;
+  --c-bluegreen: #77b7c5;
+  --c-green: #2d9a91;
+  --c-darkgray: #312f32;
+  --c-darker: #232323;
+
+  /* Semantic tokens */
+  --bg: var(--c-white);
+  --surface: var(--c-dirty);
+  --content: var(--c-darker);
+  --muted: var(--c-darkgray);
+  --primary: var(--c-green);
+  --accent: var(--c-bluegreen);
+  --accent-2: var(--c-bluish);
+  --border: #e5e7eb;
+}

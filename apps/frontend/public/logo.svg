@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <rect x="0" y="0" width="1024" height="1024" fill="#ffffff"></rect>
+  <!-- Top bar -->
+  <line x1="220" y1="300" x2="804" y2="300" stroke="#2d9a91" stroke-width="150" stroke-linecap="round"></line>
+  <!-- Stem -->
+  <line x1="512" y1="300" x2="512" y2="780" stroke="#2d9a91" stroke-width="150" stroke-linecap="round"></line>
+</svg>
