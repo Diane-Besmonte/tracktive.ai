@@ -1,0 +1,11 @@
+fastapi
+uvicorn[standard]
+SQLAlchemy>=2
+pydantic>=2
+pydantic-settings
+passlib[bcrypt]
+python-jose[cryptography]
+httpx
+python-multipart
+openai-agents
+langsmith[openai-agents]
