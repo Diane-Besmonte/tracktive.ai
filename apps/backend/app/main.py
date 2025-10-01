@@ -15,7 +15,7 @@ app = FastAPI(title="Tracktive AI", version="0.1.0")
 ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
-    "https://tracktive-ai-be.vercel.app",  # add on deploy
+    "https://tracktive-ai.vercel.app",  # add on deploy (frontend)
 ]
 
 app.add_middleware(
