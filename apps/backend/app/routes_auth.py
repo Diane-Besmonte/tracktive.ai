@@ -41,6 +41,7 @@ def _to_public(u: User) -> UserPublic:
 
 # ===== Endpoints =====
 @router.post("/register", response_model=TokenResponse, status_code=201)
+@router.post("/register/")
 def register(body: UserCreate, db: Session = Depends(get_db)):
     if db.query(User).filter((User.username == body.username.lower()) | (User.email == body.email.lower())).first():
         raise HTTPException(status_code=400, detail="Username or email already taken")
@@ -57,6 +58,7 @@ def register(body: UserCreate, db: Session = Depends(get_db)):
     return TokenResponse(access_token=token, user=_to_public(u))
 
 @router.post("/login", response_model=TokenResponse)
+@router.post("/login/")
 def login(body: LoginRequest, db: Session = Depends(get_db)):
     u = db.query(User).filter(
         (User.username == body.username_or_email.lower()) | (User.email == body.username_or_email.lower())
