@@ -9,13 +9,13 @@ from .routes_sessions import router as sessions_router
 from .database import engine
 from .models import Base
 
-app = FastAPI(title="Multi-Agent MVP", version="0.2.0")
+app = FastAPI(title="Tracktive AI", version="0.1.0")
 
 # CORS for frontend (dev + add prod later)
 ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
-    "https://tracktive-ai.vercel.app/",  # add on deploy
+    "https://tracktive-ai-be.vercel.app",  # add on deploy
 ]
 
 app.add_middleware(

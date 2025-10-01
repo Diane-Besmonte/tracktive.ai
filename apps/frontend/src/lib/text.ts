@@ -43,8 +43,9 @@ export function toTitleCase(input: string): string {
       if (isWord) {
         if (afterPunct || isFirst || isLast || !SMALL_WORDS.has(lower)) {
           // capitalize first letter, keep the rest lower (preserve apostrophes)
-          const capped = lower.replace(/^([a-z])/, (m) => m.toUpperCase())
-                              .replace(/(^|\W)([a-z])/g, (m, p1, p2) => p1 + p2.toUpperCase());
+          const capped = lower
+            .replace(/^([a-z])/, (m) => m.toUpperCase())
+            .replace(/(^|\W)([a-z])/g, (...args: string[]) => args[1] + args[2].toUpperCase());
           afterPunct = false;
           return capped;
         } else {

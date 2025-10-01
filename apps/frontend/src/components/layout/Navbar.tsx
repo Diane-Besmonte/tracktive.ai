@@ -3,6 +3,13 @@ import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { isLoggedIn } from "../../lib/auth";
 import api from "../../lib/api";
 
+// Discriminated union types
+type NavButton = { label: string; onClick: () => Promise<void>; isButton: true };
+type NavLinkItem = { to: string; label: string };
+type NavItem = NavButton | NavLinkItem;
+
+type NavClassArg = { isActive: boolean; isPending?: boolean; isTransitioning?: boolean };
+
 export default function Navbar() {
   const authed = isLoggedIn();
   const navigate = useNavigate();
@@ -18,11 +25,11 @@ export default function Navbar() {
     navigate("/login");
   }
 
-  const desktopNav = authed
+  const desktopNav: NavItem[] = authed
     ? [
         { to: "/dashboard", label: "Dashboard" },
         { to: "/generate", label: "Generate" },
-        { to: "/login", label: "Logout", onClick: logout, isButton: true },
+        { label: "Logout", onClick: logout, isButton: true },
       ]
     : [
         { to: "/#features", label: "Features" },
@@ -30,7 +37,7 @@ export default function Navbar() {
         { to: "/register", label: "Sign up" },
       ];
 
-  const menuNavLeft = authed
+  const menuNavLeft: NavLinkItem[] = authed
     ? [
         { to: "/", label: "Home" },
         { to: "/dashboard", label: "Dashboard" },
@@ -41,7 +48,7 @@ export default function Navbar() {
         { to: "/#features", label: "Features" },
       ];
 
-  const menuAccount = authed
+  const menuAccount: NavItem[] = authed
     ? [{ label: "Logout", onClick: logout, isButton: true }]
     : [
         { to: "/login", label: "Log in" },
@@ -49,7 +56,7 @@ export default function Navbar() {
       ];
 
   const linkBase = "px-3 py-2 rounded-md text-sm transition-colors";
-  const desktopLink = ({ isActive }: { isActive: boolean }) =>
+  const desktopLink = ({ isActive }: NavClassArg) =>
     [linkBase, isActive ? "text-primary" : "opacity-80 hover:opacity-100"].join(" ");
   const menuItem = "block rounded-xl px-3 py-2 text-sm hover:bg-surface";
 
@@ -63,7 +70,7 @@ export default function Navbar() {
 
           <ul className="ml-auto hidden lg:flex items-center gap-1">
             {desktopNav.map((item) =>
-              item.isButton ? (
+              "isButton" in item ? (
                 <li key={item.label} className="relative">
                   <button
                     onClick={item.onClick}
@@ -74,7 +81,7 @@ export default function Navbar() {
                 </li>
               ) : (
                 <li key={item.to} className="relative">
-                  <NavLink to={item.to!} className={desktopLink as any}>
+                  <NavLink to={item.to} className={desktopLink}>
                     {item.label}
                   </NavLink>
                   <NavActiveUnderline match={pathname === item.to} />
@@ -111,12 +118,12 @@ export default function Navbar() {
                   <ul>
                     {menuNavLeft.map((l) => (
                       <li key={l.label}>
-                        {l.to?.startsWith("/#") ? (
+                        {l.to.startsWith("/#") ? (
                           <a href={l.to} onClick={() => setOpen(false)} className={menuItem}>
                             {l.label}
                           </a>
                         ) : (
-                          <Link to={l.to!} onClick={() => setOpen(false)} className={menuItem}>
+                          <Link to={l.to} onClick={() => setOpen(false)} className={menuItem}>
                             {l.label}
                           </Link>
                         )}
@@ -129,10 +136,10 @@ export default function Navbar() {
                   <div className="px-2 pb-1 text-xs uppercase opacity-60">Account</div>
                   <div className="p-2 flex flex-col gap-2">
                     {menuAccount.map((a) =>
-                      a.isButton ? (
+                      "isButton" in a ? (
                         <button
                           key={a.label}
-                          onClick={async () => { await a.onClick?.(); setOpen(false); }}
+                          onClick={async () => { await a.onClick(); setOpen(false); }}
                           className="h-11 rounded-2xl bg-primary text-white inline-flex items-center justify-center"
                         >
                           {a.label}
@@ -140,7 +147,7 @@ export default function Navbar() {
                       ) : (
                         <Link
                           key={a.to}
-                          to={a.to!}
+                          to={a.to}
                           onClick={() => setOpen(false)}
                           className="h-11 rounded-2xl border border-border inline-flex items-center justify-center"
                         >
