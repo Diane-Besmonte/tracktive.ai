@@ -11,3 +11,4 @@ openai-agents
 langsmith[openai-agents]
 psycopg[binary]>=3.1
 sqlalchemy-libsql
+pydantic[email]>=2.0
